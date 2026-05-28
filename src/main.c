@@ -3,8 +3,8 @@
 
 int main(int argc, char *argv[argc+1])
 {
-    vector *x;
-    switch(init_vector(x, 5)) {
+    vector_t x = {0};
+    switch(vector_init(&x, sizeof(int))) {
         case 0:
             printf("SUCCESS");
             break;
@@ -15,4 +15,7 @@ int main(int argc, char *argv[argc+1])
             printf("VECTOR_INITIAL_COUNT_ERROR");
             break;
     }
+
+    vector_destroy(&x);
+    print_test();
 }

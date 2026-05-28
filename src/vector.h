@@ -1,21 +1,39 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <stdint.h>
 #include <stddef.h>
-#include <stdlib.h>
+#include <stdint.h>
 
-#define VECTOR_MEMORY_INIT_SUCCESS 0;
-#define VECTOR_MEMORY_ALLOC_ERROR 1;
-#define VECTOR_INITIAL_COUNT_ERROR 2;
+#define VECTOR_INIT_SIZE 10;
+#define VECTOR_INIT_ELEMENTS_COUNT 0;
 
-typedef struct {
-    int32_t *data;      
-    size_t count;       
-    size_t size;        
-} vector;
+enum _error_codes_e {
+    VECTOR_INIT_SUCCESS = 0,
+    VECTOR_MEMORY_ALLOC_ERROR = 1,
+    VECTOR_INIT_ARGS_ERROR = 2
+};
 
-int init_vector(vector *ptr_to_vector, size_t init_count);
-void destroy_vector(vector *ptr_to_vector);
+typedef enum _error_codes_e error_t;
+
+struct _vector_s {
+    void *vector_data;      
+    size_t vector_elements_count;       
+    size_t vector_total_size; 
+    size_t vector_element_size;       
+};
+
+typedef struct _vector_s vector_t;
+
+struct _error_description_s {
+    int code;
+    char *message;
+};
+
+typedef struct _error_description_s error_description_t;
+
+int vector_init(vector_t *vector_ptr, size_t vector_element_size);
+void vector_destroy(vector_t *vector_ptr);
+void vector_print_error(error_t code);
+void print_test();
 
 #endif
