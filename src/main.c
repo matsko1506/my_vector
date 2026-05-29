@@ -15,7 +15,4 @@ int main(int argc, char *argv[argc+1])
             printf("VECTOR_INITIAL_COUNT_ERROR");
             break;
     }
-
-    vector_destroy(&x);
-    print_test();
 }
