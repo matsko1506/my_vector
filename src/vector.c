@@ -23,11 +23,6 @@ error_description_t array[] = {
 error_t vector_init(vector_t *vector_ptr, size_t vector_element_bytes_size) {
     if(!vector_ptr || !vector_element_bytes_size) 
         return VECTOR_INIT_ARGS_ERROR; 
-    vector_ptr->vector_destroy_fptr = vector_destroy;
-    vector_ptr->vector_push_fptr = vector_push;
-    vector_ptr->vector_get_fptr = vector_get;
-    vector_ptr->vector_set_fptr = vector_set;
-    vector_ptr->vector_print_fptr = vector_print;
     vector_ptr->vector_element_bytes_size = vector_element_bytes_size;    
     vector_ptr->vector_elements_count = VECTOR_INIT_ELEMENTS_COUNT;
     vector_ptr->vector_total_bytes_size = vector_ptr->vector_element_bytes_size * VECTOR_INIT_SIZE;
@@ -74,22 +69,20 @@ error_t vector_push(vector_t *vector_ptr, void *value) {
 }
 
 error_t vector_get(void *destination_ptr, vector_t *vector_ptr, int index) {
-    printf("ELEMENTS:%d\n", vector_ptr->vector_elements_count);
     if(!vector_ptr || !destination_ptr)
         return VECTOR_GET_INVALID_ARGS_ERROR;
     if(vector_ptr->vector_elements_count == 0) 
         return VECTOR_GET_NO_ELEMENTS;
-    if(index < 0 || index > vector_ptr->vector_elements_count)
+    if(index < 0 || index >= vector_ptr->vector_elements_count)
         return VECTOR_GET_OUT_OF_BOUNDS_ERROR;
     VECTOR_GET(destination_ptr, vector_ptr, index);
     return VECTOR_GET_SUCCESS;
 }
 
 error_t vector_set(void *source_ptr, vector_t *vector_ptr, int index) {
-    printf("ELEMENTS:%d\n", vector_ptr->vector_elements_count);
     if(!source_ptr || !vector_ptr)
         return VECTOR_SET_INVALID_ARGS_ERROR;
-    if(index < 0 || index > vector_ptr->vector_elements_count)
+    if(index < 0 || index >= vector_ptr->vector_elements_count)
         return VECTOR_SET_OUT_OF_BOUNDS_ERROR;
     if(vector_ptr->vector_elements_count == 0) 
         return VECTOR_SET_NO_ELEMENTS;

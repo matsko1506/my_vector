@@ -26,14 +26,14 @@ int main(int argc, char *argv[argc+1])
     int a = 0;
     int b = 1000;
 
-    if((error = x.vector_get_fptr(&a, &x, 1)) == VECTOR_GET_NO_ELEMENTS)
+    if((error = vector_get(&a, &x, 1)) == VECTOR_GET_NO_ELEMENTS)
     {  
         printf("TEST");
     }
     printf("Vector value at index 1 is %d\n", a);
-    x.vector_set_fptr(&b, &x, 1);
-    x.vector_get_fptr(&a, &x, 1);
+    vector_set(&b, &x, 1);
+    vector_get(&a, &x, 1);
     printf("Vector value at index 1 is %d", a);
 
-    x.vector_destroy_fptr(&x);
+    vector_destroy(&x);
 };
